@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  apache:
+    image: mario209/apache:v2
+    ports:
+      - 80:80
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=tienda
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=password
+      - LANG=C.UTF-8
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
+
+volumes:
+  mariadb_data:
