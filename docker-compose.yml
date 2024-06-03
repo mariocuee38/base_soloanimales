@@ -2,7 +2,7 @@ version: '3'
 
 services:
   apache:
-    image: mario209/apache:v2
+    image: mariocuee38/zoo:v2
     ports:
       - 80:80
     depends_on:
@@ -14,7 +14,7 @@ services:
       - 3306:3306
     environment:
       - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_DATABASE=tienda
+      - MARIADB_DATABASE=zoologico
       - MARIADB_USER=user
       - MARIADB_PASSWORD=password
       - LANG=C.UTF-8
