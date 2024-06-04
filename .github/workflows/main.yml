@@ -35,7 +35,7 @@ jobs:
 
     - name: Deploy con Docker Compose
       run: |
-        docker-compose pull $IMG:latest 
+        docker-compose pull $IMG 
         docker-compose up -d
       #"docker-compose pull $IMG" para asegurar que se usa la ultima version de $IMG
       
