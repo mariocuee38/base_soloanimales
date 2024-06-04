@@ -1,7 +1,7 @@
 name: Docker website CI
 on:
   push:
-    branches: 
+    branches:
     - main
 jobs:
   build:
@@ -10,22 +10,35 @@ jobs:
 
     env: #Creo una variable con el nombre completo de la imagen
       IMG: ${{ secrets.DOCKERHUB_USERNAME }}/apachetest
-    
+
     steps:
     - name: Checkear repositorio
       uses: actions/checkout@v4.1.5
-      
+
     - name: Login a Docker Hub
       uses: docker/login-action@v3.2.0
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
+
     - name: Hacer docker build
-      run: | 
+      run: |
         docker build --platform linux --tag $IMG -f Dockerfile .
-    
+
     - name: Hacer push de la imagen a Docker Hub
-      run: | 
+      run: |
         docker push $IMG
-          
+
+    - name: Deployement en server
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: 3.82.175.207
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /deploy/base_soloanimales
+          git pull origin main
+          sed -i '/^\s*apache:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG:latest"'|' docker-compose.yml
+          docker-compose down
+          docker-compose pull apache
+          docker-compose up -d
