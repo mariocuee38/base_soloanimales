@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env: #Creo una variable con el nombre completo de la imagen
-      IMG: ${{ secrets.DOCKERHUB_USERNAME }}/apachetest:latest
+      IMG: ${{ secrets.DOCKERHUB_USERNAME }}/apachetest
     
     steps:
     - name: Checkear repositorio
@@ -31,12 +31,12 @@ jobs:
 
     - name: Actualizar docker-compose #Sustituir primera ocurrencia de "image:" por la nueva
       run: |
-        sed -i '/^\s*web:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG"'|' docker-compose.yml
+        sed -i '/^\s*web:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG:latest"'|' docker-compose.yml
 
     - name: Deploy con Docker Compose
       run: |
         docker-compose down
-        docker-compose pull $IMG 
+        docker-compose pull $IMG:latest 
         docker-compose up -d
       #"docker-compose pull $IMG" para asegurar que se usa la ultima version de $IMG
       
