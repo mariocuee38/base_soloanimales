@@ -10,18 +10,6 @@
 
  $conn = new mysqli(MARIADB_HOST, MARIADB_USER, MARIADB_PASSWORD,MARIADB_DATABASE);
 
-<?php
-
- define('MARIADB_HOST', 'mysql');
-
- define('MARIADB_DATABASE', 'zoologico');
-
- define('MARIADB_USER', 'user');
-
- define('MARIADB_PASSWORD', 'password');
-
- $conn = new mysqli(MARIADB_HOST, MARIADB_USER, MARIADB_PASSWORD,MARIADB_DATABASE);
-
 // Consulta para los animales
  $sql_animales = "SELECT Animales.ID, Animales.Nombre AS NombreAnimal, Animales.Especie, Animales.Edad, Habitat.Nombre AS NombreHabitat FROM Animales JOIN Habitat ON Animales.HabitatID = Habitat.ID";
  $result_animales = $conn->query($sql_animales);
