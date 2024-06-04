@@ -20,7 +20,7 @@
                 <th>Nombre</th>
                 <th>Especie</th>
                 <th>Edad</th>
-                <th>Hábitat</th>
+                <th>Habitat</th>
             </tr>";
     while($row = $result->fetch_assoc()) {
         echo "<tr>
