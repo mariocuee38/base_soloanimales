@@ -31,7 +31,7 @@ jobs:
 
     - name: Actualizar docker-compose #Sustituir primera ocurrencia de "image:" por la nueva
       run: |
-        sed -i 's|^\(\s*image:\s*\).*|\1'"$IMG"'||' docker-compose.yml
+        sed -i '/^\s*web:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG"'|' docker-compose.yml
 
     - name: Deploy con Docker Compose
       run: |
