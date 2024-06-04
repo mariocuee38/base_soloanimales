@@ -1,3 +1,4 @@
+<?php
  define('MARIADB_HOST', 'mysql');
 
  define('MARIADB_DATABASE', 'zoologico');
