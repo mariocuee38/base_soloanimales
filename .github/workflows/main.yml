@@ -28,8 +28,4 @@ jobs:
     - name: Hacer push de la imagen a Docker Hub
       run: | 
         docker push $IMG
-
-    - name: Actualizar docker-compose #Sustituir primera ocurrencia de "image:" por la nueva
-      run: |
-        sed -i '/^\s*apache:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG:latest"'|' docker-compose.yml
           
