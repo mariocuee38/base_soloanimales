@@ -30,7 +30,7 @@ jobs:
         docker push $IMG
 
     - name: Deployement en server
-      uses: appleboy/ssh-action@v0.1.3
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: 3.82.175.207
         username: ubuntu
