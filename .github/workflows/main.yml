@@ -23,7 +23,7 @@ jobs:
     
     - name: Hacer docker build
       run: | 
-        docker build --platform linux --tag $IMG -f ./Dockerfile .
+        docker build --platform linux --tag $IMG -f Dockerfile .
     
     - name: Hacer push de la imagen a Docker Hub
       run: | 
@@ -32,18 +32,4 @@ jobs:
     - name: Actualizar docker-compose #Sustituir primera ocurrencia de "image:" por la nueva
       run: |
         sed -i '/^\s*apache:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG:latest"'|' docker-compose.yml
-
-    - name: Deploy con Docker Compose
-      run: |
-        docker-compose pull apache 
-        docker-compose up -d
-      #"docker-compose pull $IMG" para asegurar que se usa la ultima version de $IMG
-      
-    - name: Public IP
-      id: ip
-      uses: haythem/public-ip@v1.3
-
-    - name: Print Public IP
-      run: |
-        echo ${{ steps.ip.outputs.ipv4 }}  
           
