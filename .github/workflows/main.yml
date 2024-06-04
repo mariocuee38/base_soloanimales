@@ -36,7 +36,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /deploy/base_soloanimales
+          cd deploy/base_soloanimales/
           git pull origin main
           sed -i '/^\s*apache:/,/image:/s|^\(\s*image:\s*\).*|\1'"$IMG:latest"'|' docker-compose.yml
           docker-compose down
