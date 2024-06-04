@@ -38,7 +38,7 @@ jobs:
         script: |
           cd deploy/base_soloanimales/
           git pull origin main
-          sed -i '/^\s*apache:/,/^\s*image:/ s|image:.*|image: '"$IMG"'|' docker-compose.yml
+          sed -i "/^\s*apache:/,/^\s*image:/ s|image:.*|image: $IMG|" docker-compose.yml
           docker compose down
           docker compose pull apache
           docker compose up -d
