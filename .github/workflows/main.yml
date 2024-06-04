@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env: #Creo una variable con el nombre completo de la imagen
-      IMG: ${{ secrets.DOCKERHUB_USERNAME }}/apachetest:latest
+      IMG: mariocuee38/apachetest:latest
 
     steps:
     - name: Checkear repositorio
@@ -36,7 +36,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd deploy/base_soloanimales/
+          cd deploy/base_soloanimales
           git pull origin main
           sed -i "/^\s*apache:/,/^\s*image:/ s|image:.*|image: $IMG|" docker-compose.yml
           docker compose down
